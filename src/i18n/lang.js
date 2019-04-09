@@ -4,7 +4,6 @@ window.Vue = Vue // 要在vue-i18n实例化之前执行
 Vue.use(VueI18n)
 import cn from './cn'
 import en from './en'
-console.log(cn, en)
 export default new VueI18n({
   locale: 'en',    // 语言标识
   // this.$i18n.locale // 通过切换locale的值来实现语言切换

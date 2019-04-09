@@ -1,7 +1,7 @@
 <template>
-	<div class="box">
-
-	</div>
+		<div class="box">
+	
+		</div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@
 
 <style scoped>
 	.box{
-		width: 200px;
+		width: 100%;
 		height: 100%;
 		background-color: #000;
 	}

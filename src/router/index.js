@@ -4,7 +4,7 @@ Vue.use(VueRouter)
 
 export default new VueRouter({
   routes: [
-    { path: '/', redirect: '/portal' },
+    { path: '/', redirect: '/portal/home' },
     {
       path: '/portal',
       component: () => import('@/views/layout/layout.vue'),
