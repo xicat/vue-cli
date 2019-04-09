@@ -36,7 +36,6 @@ export default new VueRouter({
           },
           component: () => import('@/views/work/work.vue')
         },
-
         {
           path: 'learn',
           name: 'Learn',
@@ -45,6 +44,15 @@ export default new VueRouter({
             title: 'common.learn'
           },
           component: () => import('@/views/learn/learn.vue')
+        },
+        {
+          path: 'diary',
+          name: 'Diary',
+          meta: {
+            root: 'diary',
+            title: 'common.diary'
+          },
+          component: () => import('@/views/diary/diary.vue')
         },
         {
           path: 'disport',

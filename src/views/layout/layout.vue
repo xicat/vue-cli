@@ -1,19 +1,19 @@
 <template>
 <el-container>
   <el-header>
-  	<nav-menu></nav-menu>
+    <nav-menu></nav-menu>
   </el-header>
   <el-container class="container">
 
-	    <el-aside width="200px" v-show="flagShowSideMenu">
-	    	<side-menu ></side-menu>
-	    </el-aside>
+      <el-aside width="200px" v-show="flagShowSideMenu">
+        <side-menu></side-menu>
+      </el-aside>
     <el-main class="content">
-    	<router-view></router-view>
+      <router-view></router-view>
     </el-main>
   </el-container>
-</el-container>	
-	
+</el-container>
+
 </template>
 
 <script>
@@ -23,47 +23,42 @@ export default {
     navMenu: () => import('./components/navMenu.vue'),
     sideMenu: () => import('./components/sideMenu.vue')
   },
-  data() {
-  	return {
-  		flagShowSideMenu:false,
-  		showMenuPage:{
-  			'home': false,
-  			'family': true,
-  			'work': true,
-  			'learn': true,
-  			'disport': true,
-  			'about':false
-  		}
-  	}
+  data () {
+    return {
+      flagShowSideMenu: false,
+      showMenuPage: {
+        'home': false,
+        'family': true,
+        'work': true,
+        'diary': true,
+        'learn': true,
+        'disport': true,
+        'about': false
+      }
+    }
   },
-  created(){
-  	let flag = this.showMenuPage[this.$route.meta.root];
-		this.displaySideMenu(flag,flag);
+  created () {
+    const flag = this.showMenuPage[this.$route.meta.root]
+    this.displaySideMenu(flag, flag)
   },
   watch: {
-  	'$route.meta.root'(to,form) {
-  		console.log('watch',form,to)
-			if(!form) {
-				let flag = this.showMenuPage[to];
-				this.displaySideMenu(flag,flag);
-				return;
-			}
-				let flag1 = this.showMenuPage[form];
-				let flag2 = this.showMenuPage[to];
-				this.displaySideMenu(flag1,flag2);			
-  	}
+    '$route.meta.root' (to, form) {
+      console.log('watch', form, to)
+      if (!form) {
+        const flag = this.showMenuPage[to]
+        this.displaySideMenu(flag, flag)
+        return
+      }
+      const flag1 = this.showMenuPage[form]
+      const flag2 = this.showMenuPage[to]
+      this.displaySideMenu(flag1, flag2)
+    }
   },
   methods: {
-  	displaySideMenu(form,to) {
-  		console.log('displaySideMenu',form,to)
-  		this.flagShowSideMenu = to;
-  		if(form===to){
-  			
-  		}else{
-  			
-  		}
-  	}
- 	
+    displaySideMenu (form, to) {
+      console.log('displaySideMenu', form, to)
+      this.flagShowSideMenu = to
+    }
   }
 }
 </script>
