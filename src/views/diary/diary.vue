@@ -1,5 +1,6 @@
 <template>
-<div>{{pageName}}</div>
+	<div class="box">
+	</div>
 </template>
 
 <script>
@@ -8,16 +9,26 @@ export default {
   name: 'diary',
   data () {
     return {
-      pageName: 'Diary'
+
+      
     }
   },
   mounted () {
+  	console.log('mounted-diary')
     getList(res => {
+
       console.log('mounted', res)
     })
   }
 }
 </script>
 
-<style>
+<style scoped>
+.box{
+	padding: 10px;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(255,255,255,0.5);
+}
 </style>

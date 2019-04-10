@@ -10,6 +10,7 @@ import '@/assets/css/index.css'
 if (process.env.VUE_APP_MOCK === 'mock') {
   require('../mock')
   require('es-promise').polyfill()
+  console.log('main')
 }
 Vue.use(ElementUI)
 
