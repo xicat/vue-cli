@@ -7,7 +7,10 @@ import store from './store/'
 import i18n from './i18n/lang'
 
 import '@/assets/css/index.css'
-
+if (process.env.VUE_APP_MOCK === 'mock') {
+  require('../mock')
+  require('es-promise').polyfill()
+}
 Vue.use(ElementUI)
 
 new Vue({

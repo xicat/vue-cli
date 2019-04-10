@@ -43,7 +43,6 @@ export default {
   },
   watch: {
     '$route.meta.root' (to, form) {
-      console.log('watch', form, to)
       if (!form) {
         const flag = this.showMenuPage[to]
         this.displaySideMenu(flag, flag)
@@ -56,7 +55,6 @@ export default {
   },
   methods: {
     displaySideMenu (form, to) {
-      console.log('displaySideMenu', form, to)
       this.flagShowSideMenu = to
     }
   }
