@@ -24,6 +24,7 @@
     "echarts": "^4.2.1",
     "element-ui": "^2.7.2",
     "es-promise": "^1.0.3",
+    "es6-promise": "^4.2.6",
     "eslint": "^5.8.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-vue": "^5.2.2",
@@ -55,7 +56,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,vue}": [
-      "vue-cli-service lint --fix",
+      "vue-cli-service lint --mode production ",
       "git add"
     ]
   },

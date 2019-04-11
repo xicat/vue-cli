@@ -1,1 +1,1 @@
-import('./modules/diary')
+import './modules/diary'

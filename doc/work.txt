@@ -9,5 +9,11 @@ home about 模块 关闭菜单  ；  其他模块 显示菜单
  设置 vue.config.js
 
 
+ 2019-04-11 
+ 今日问题 
+ diary 页面直接打开时  mounted加载数据 不能被mock 拦截  而切换路由就可以被拦截。
+ 定位半天发现 才发现 mock 定义时 加载模块用 import ('./modules/diary')
+ 这是一个延时加载。改为 import './modules/diary'
  
 
+功能开发先押后。现在弄代码检测

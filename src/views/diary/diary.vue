@@ -10,14 +10,11 @@ export default {
   data () {
     return {
 
-      
     }
   },
   mounted () {
-  	console.log('mounted-diary')
     getList(res => {
-
-      console.log('mounted', res)
+      	console.log('mounted', res)
     })
   }
 }
