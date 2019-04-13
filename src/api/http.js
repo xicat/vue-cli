@@ -1,9 +1,9 @@
 import axios from 'axios'
 const timeout = 50000
 let instance = null
-if (process.env.VUE_APP_MOCK === 'mock') {
+if (process.env.VUE_APP_MOCK !== 'mock') {
   instance = axios.create({
-    baseURL: process.env.VUE_APP_MOCK,
+    baseURL: process.env.VUE_APP_URL,
     timeout: timeout
   })
 } else {

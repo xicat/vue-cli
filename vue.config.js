@@ -1,7 +1,7 @@
 const path = require('path')
 module.exports = {
   // 基本路径
-  baseUrl: process.env.VUE_APP_MOCK ? process.env.VUE_APP_MOCK : '/',
+  publicPath: process.env.VUE_APP_MOCK ? process.env.VUE_APP_MOCK : '/',
   // 输出文件目录
   outputDir: 'dist',
   // eslint-loader 是否在保存的时候检查
