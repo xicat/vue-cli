@@ -1,83 +1,35 @@
 <template>
-<div>{{pageName}}
-	<ci-table
-		:tableData="tableData"
-		:columns="columns"
-		:loading="loading"
-		></ci-table>
-</div>
-</template>
+<component  :is="page">
+</component>
 
+</template>
 <script>
-import { getTableData }	from './api'
-import ciTable from '@c/ciTable/ciTable.vue'	
+import workClientTable  from './components/workClientTable.vue';
+import workServerTable  from './components/workServerTable.vue';
+import eChart from './components/echart.vue';
+import { mapGetters } from 'vuex'
 export default {
   name: 'work',
   components:{
-  	ciTable
+  	workClientTable,
+  	workServerTable,
+  	eChart
   },
-  data () {
-    return {
-      pageName: 'Work',
-      loading:false,
-      tableData:[]
-    }
-  },
-	computed:{
-		columns() {
-			return [{
-				type: 'selection',
-				width: '55'
-			},
-			{
-	      field: "date",
-	      title: "日期",
-	      width: "120"
-			}, 
-			{
-	      field: "name",
-	      title: "姓名",
-	      width: "120"	
-			},
-			{
-	      field: "phone",
-	      title: "手机",
-	      width: "120"	
-			},
-			{
-	      field: "score",
-	      title: "成绩",
-	      width: "220"	
-			},
-			{
-	      field: "age",
-	      title: "年纪",
-	      width: "220"	
-			},
-			{
-	      field: "gender",
-	      title: "性别",
-	      width: "120"	
-			},		
-			{
-	      field: "address",
-	      title: "地址",
-	      width: "240"			      
-			}]
+	data() {
+		return {
+			page: 'workClientTable'
 		}
 	},
-	mounted() {
-		this.getTableData() 
+	computed:{
+		...mapGetters({
+  		workPage:'work/page'
+  	}),
 	},
- 	methods: {
- 		getTableData() {
- 			this.loading = false;
- 			getTableData(null,res=>{
- 				this.tableData  = res;
- 				this.loading = true;
- 			})
- 		}
- 	}
+	watch:{
+		'workPage'(page) {
+			this.page = page;
+		},
+	}	
 }
 </script>
 

@@ -8,7 +8,9 @@ export default {
     diary: 'Diary',
     disport: 'Disport',
     family: 'Family',
-    about: 'About'
+    about: 'About',
+    noData: 'No Data',
+    loading: 'Loading'
   }
 
 }

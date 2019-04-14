@@ -1,5 +1,6 @@
 import Vuex from 'vuex' // 引入 vuex
 import Vue from 'vue'
+import work from './modules/work'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
@@ -23,5 +24,8 @@ export default new Vuex.Store({
   },
   getters: {
     count: state => state.count
+  },
+  modules: {
+  	work,
   }
 })

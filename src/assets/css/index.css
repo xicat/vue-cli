@@ -8,3 +8,14 @@ ul,li{
 	padding: 0;
 }
 .el-header{padding: 0px;}
+.table .el-table th{
+	background-color: #ecf8ff;
+}
+.table .el-table .cell{
+	white-space:nowrap;
+}
+.table .el-table tr.no-pass td{
+	background-color: red!important;
+	color:#fff!important;
+}
+

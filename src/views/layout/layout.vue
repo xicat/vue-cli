@@ -5,7 +5,7 @@
   </el-header>
   <el-container class="container">
 
-      <el-aside width="200px" v-show="flagShowSideMenu">
+      <el-aside width="200px" v-show="flagShowSideMenu" class="aside">
         <side-menu></side-menu>
       </el-aside>
     <el-main class="content">
@@ -72,5 +72,11 @@ export default {
 		background-color: #f5f5f5;
 		box-sizing: border-box;
 		padding: 10px;
+		height: 100%;
+		width: 100%;
+	}
+	.aside{
+		height: 100%;
+		background-color: rgb(84, 92, 100);
 	}
 </style>
