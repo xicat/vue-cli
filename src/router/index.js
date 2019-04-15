@@ -1,79 +1,78 @@
-import VueRouter from 'vue-router'
-import Vue from 'vue'
-Vue.use(VueRouter)
+import VueRouter from "vue-router";
+import Vue from "vue";
+Vue.use(VueRouter);
 
 export default new VueRouter({
   routes: [
-    { path: '/', redirect: '/portal/home' },
+    { path: "/", redirect: "/portal/home" },
     {
-      path: '/portal',
-      component: () => import('@/views/layout/layout.vue'),
+      path: "/portal",
+      component: () => import("@/views/layout/layout.vue"),
       children: [
         {
-          path: 'home',
-          name: 'Home',
+          path: "home",
+          name: "Home",
           meta: {
-            root: 'home',
-            title: 'common.home'
+            root: "home",
+            title: "common.home"
           },
-          component: () => import('@/views/home/home.vue')
+          component: () => import("@/views/home/home.vue")
         },
         {
-          path: 'family',
-          name: 'Family',
+          path: "family",
+          name: "Family",
           meta: {
-            root: 'family',
-            title: 'common.family'
+            root: "family",
+            title: "common.family"
           },
-          component: () => import('@/views/family/family.vue')
+          component: () => import("@/views/family/family.vue")
         },
         {
-          path: 'work',
-          name: 'Work',
+          path: "work",
+          name: "Work",
           meta: {
-            root: 'work',
-            title: 'common.work'
+            root: "work",
+            title: "common.work"
           },
-          component: () => import('@/views/work/work.vue')
+          component: () => import("@/views/work/work.vue")
         },
         {
-          path: 'learn',
-          name: 'Learn',
+          path: "learn",
+          name: "Learn",
           meta: {
-            root: 'learn',
-            title: 'common.learn'
+            root: "learn",
+            title: "common.learn"
           },
-          component: () => import('@/views/learn/learn.vue')
+          component: () => import("@/views/learn/learn.vue")
         },
         {
-          path: 'diary',
-          name: 'Diary',
+          path: "diary",
+          name: "Diary",
           meta: {
-            root: 'diary',
-            title: 'common.diary'
+            root: "diary",
+            title: "common.diary"
           },
-          component: () => import('@/views/diary/diary.vue')
+          component: () => import("@/views/diary/diary.vue")
         },
         {
-          path: 'disport',
-          name: 'Disport',
+          path: "disport",
+          name: "Disport",
           meta: {
-            root: 'disport',
-            title: 'common.disport'
+            root: "disport",
+            title: "common.disport"
           },
-          component: () => import('@/views/disport/disport.vue')
+          component: () => import("@/views/disport/disport.vue")
         },
         {
-          path: 'about',
-          name: 'About',
+          path: "about",
+          name: "About",
           meta: {
-            root: 'about',
-            title: 'common.about'
+            root: "about",
+            title: "common.about"
           },
-          component: () => import('@/views/about/about.vue')
+          component: () => import("@/views/about/about.vue")
         }
-
       ]
     }
   ]
-})
+});

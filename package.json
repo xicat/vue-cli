@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --mode production",
     "precommit": "lint-staged"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "@vue/cli-plugin-babel": "^3.5.0",
     "@vue/cli-plugin-eslint": "^3.5.0",
     "@vue/cli-service": "^3.5.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
     "axios": "^0.18.0",
     "babel-core": "^6.0.0",
     "babel-eslint": "^10.0.1",
@@ -43,7 +44,7 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "@vue/prettier"
     ],
     "rules": {},
     "parserOptions": {

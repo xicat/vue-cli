@@ -1,17 +1,16 @@
 <template>
-<div>{{pageName}}</div>
+  <div>{{ pageName }}</div>
 </template>
 
 <script>
 export default {
-  name: 'disport',
-  data () {
+  name: "disport",
+  data() {
     return {
-      pageName: 'Disport'
-    }
+      pageName: "Disport"
+    };
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>
