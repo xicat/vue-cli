@@ -22,6 +22,49 @@ home about 模块 关闭菜单  ；  其他模块 显示菜单
 1 完成  githook pre-commit 标准化代码 
 2 完成 mock.js 假数据
 3 完成  build代码 提交到服务器 
+4 完成 element-ui table封装 
+
+
+.git/hooks/pre-commit 文件  
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git commit" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message if
+# it wants to stop the commit.
+#
+# To enable this hook, rename this file to "pre-commit".
+
+STAGE_FILES=$(git diff --cached --name-only --diff-filter=ACM -- '*.vue' '*.js')
+if test ${#STAGE_FILES} -gt 0
+then
+    echo '开始检查'
+
+
+    for FILE in $STAGE_FILES
+    do
+        npm run lint $FILE
+		git add $FILE
+        if [[ "$?" == 1 ]]; then
+      PASS=false
+    fi
+  done
+
+  if ! $PASS; then
+      echo "检查没通过！"
+      exit 1
+  else
+      echo "检查完毕"
+  fi
+
+else
+    echo '没有文件需要检查'
+fi
+
+exit 0
+
+下一步目标  koa2 框架在服务器搭建 
+先 学习es6
 
 
 
