@@ -84,7 +84,12 @@
           :filtered-value="column.filteredValue"
         >
           <template slot-scope="scope">
-            <slot :name="scope.row.property" :row="scope.row" />
+            <slot
+              :name="column.field"
+              :scope="scope"
+              :row="scope.row"
+              :column="column"
+            />
           </template>
         </el-table-column>
         <el-table-column
@@ -422,7 +427,7 @@ export default {
       if (!this.customColumns) {
         return false;
       }
-      return this.customColumns.indexof(col) > -1;
+      return this.customColumns.indexOf(col) > -1;
     },
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
@@ -568,7 +573,7 @@ export default {
 .table {
   height: calc(100%);
   box-sizing: border-box;
-  padding-bottom: 40px;
+  padding-bottom: 48px;
   width: 100%;
   position: relative;
   background-color: #fff;
@@ -577,6 +582,8 @@ export default {
   position: absolute;
   width: calc(100% - 10px);
   left: 0;
-  bottom: 0px;
+  bottom: 8px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>

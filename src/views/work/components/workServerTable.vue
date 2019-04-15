@@ -3,11 +3,15 @@
     :tableData="tableData"
     :columns="columns"
     :loading="loading"
-    :rowClassName="rowClassName"
+    :customColumns="customColumns"
     @page-change="pageChange"
     @sort-change="sortChange"
     @filter-change="filterChange"
-  ></ci-table>
+  >
+    <template slot="score" slot-scope="scope">
+      <span :style="showNoPass(scope.row)">{{ scope.row.score }}</span>
+    </template>
+  </ci-table>
 </template>
 
 <script>
@@ -21,6 +25,7 @@ export default {
   data() {
     return {
       pageName: "Work",
+      customColumns: ["score"],
       loading: false,
       tableData: [],
       filters: null,
@@ -115,6 +120,14 @@ export default {
     filterChange(filters) {
       this.filters = filters;
       this.getTableData();
+    },
+    showNoPass(row) {
+      if (row.score < 60) {
+        return {
+          color: "red"
+        };
+      }
+      return null;
     }
   }
 };

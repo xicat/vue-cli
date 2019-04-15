@@ -3,7 +3,6 @@
     :tableData="tableData"
     :columns="columns"
     :loading="loading"
-    :rowClassName="rowClassName"
   ></ci-table>
 </template>
 
@@ -94,12 +93,6 @@ export default {
         this.tableData = res;
         this.loading = false;
       });
-    },
-
-    rowClassName({ row }) {
-      if (row.score < 60) {
-        return "no-pass";
-      }
     }
   }
 };
