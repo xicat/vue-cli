@@ -1,5 +1,6 @@
 <template>
   <el-menu
+    class="el-menu"
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#1989fa"
@@ -41,5 +42,8 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #000;
+}
+.el-menu {
+  border-right-width: 0;
 }
 </style>
