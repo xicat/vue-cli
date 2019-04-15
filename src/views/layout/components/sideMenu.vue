@@ -21,6 +21,8 @@ export default {
     refreshPageMenu(root) {
       if (root == "work") {
         this.menu = "workMenu";
+      } else {
+        this.menu = "";
       }
     }
   },

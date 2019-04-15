@@ -9,12 +9,16 @@
   >
     <el-submenu index="1">
       <template slot="title">
-        <i class="el-icon-el-icon-date"></i>
+        <i class="el-icon-menu"></i>
         <span>表格</span>
       </template>
       <el-menu-item index="1-1">本地分页</el-menu-item>
       <el-menu-item index="1-2">远程分页</el-menu-item>
     </el-submenu>
+    <el-menu-item index="2">
+      <i class="el-icon-menu"></i>
+      <span slot="title">表单</span>
+    </el-menu-item>
   </el-menu>
 </template>
 
@@ -29,7 +33,7 @@ export default {
     select(index) {
       if (index == "1-1") {
         this.setPage("workClientTable");
-      } else {
+      } else if (index == "1-2") {
         this.setPage("workServerTable");
       }
     }
