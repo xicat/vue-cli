@@ -42,7 +42,7 @@ const mutations = {
     modal.zIndex = state.zIndex;
     modal.currId = state.currId;
     modal.show = true;
-    modal.active = true;
+    state.activeId = modal.currId;
     state.modals.push(modal);
   },
   delModal(state, id) {
@@ -53,15 +53,15 @@ const mutations = {
   showModal(state, id) {
     let modal = state.modals.find(item => item.id === id);
     modal.show = true;
-    modal.activeId = id;
+    state.activeId = id;
   },
   hideModal(state, id) {
     let modal = state.modals.find(item => item.id === id);
     modal.show = false;
-    modal.activeId = null;
+    state.activeId = null;
   },
   toTopModal(state, id) {
-    modal.activeId = id;
+    state.activeId = id;
   }
 };
 
