@@ -3,14 +3,16 @@ const state = {
   modals: [],
   zIndex: 0,
   currId: 0,
-  activeIndex: 2000
+  activeId: 0,
+  activezIndex: 2000
 };
 
 // getters
 const getters = {
   modals: state => state.modals,
   zIndex: state => state.zIndex,
-  currId: state => state.currId
+  currId: state => state.currId,
+  activeId: state => state.activeId
 };
 
 // actions
@@ -39,20 +41,27 @@ const mutations = {
     state.currId++;
     modal.zIndex = state.zIndex;
     modal.currId = state.currId;
-
+    modal.show = true;
+    modal.active = true;
     state.modals.push(modal);
   },
   delModal(state, id) {
-    let modal = state.modals.filter(item => item.id === id);
+    let modal = state.modals.find(item => item.id === id);
+    modal = null;
+    state.modals = state.modals.find(item => !item);
   },
   showModal(state, id) {
-    let modal = state.modals.filter(item => item.id === id);
+    let modal = state.modals.find(item => item.id === id);
+    modal.show = true;
+    modal.activeId = id;
   },
   hideModal(state, id) {
-    let modal = state.modals.filter(item => item.id === id);
+    let modal = state.modals.find(item => item.id === id);
+    modal.show = false;
+    modal.activeId = null;
   },
   toTopModal(state, id) {
-    let modal = state.modals.filter(item => item.id === id);
+    modal.activeId = id;
   }
 };
 
