@@ -395,13 +395,37 @@ export default {
   data() {
     return {
       pageSize: this.initPageSize,
-      currentPage: this.initCurrentPage
+      currentPage: this.initCurrentPage,
+      filters: null,
+      order: null,
+      dataLength: 0
     };
   },
   computed: {
     showTableData() {
       if (this.pagination == "client") {
-        return this.tableData.slice(
+        let data = this.tableData;
+        debugger;
+        if (this.filters) {
+          for (let attr in this.filters) {
+            data = data.filter(
+              row => this.filters[attr].indexOf(row[attr]) > -1
+            );
+          }
+        }
+
+        if (this.order) {
+          data.sort((a, b) => {
+            if (this.order.order == "descending") {
+              return b[this.order.prop] - a[this.order.prop];
+            } else {
+              return a[this.order.prop] - b[this.order.prop];
+            }
+          });
+        }
+
+        this.dataLength = data.length;
+        return data.slice(
           (this.currentPage - 1) * this.pageSize,
           this.currentPage * this.pageSize
         );
@@ -411,7 +435,7 @@ export default {
     },
     showTotal() {
       if (this.pagination == "client") {
-        return this.tableData.length;
+        return this.dataLength;
       } else {
         return this.tableData[this.total];
       }
@@ -493,18 +517,26 @@ export default {
       // 当某一列的表头被点击时会触发该事件
       this.$emit("header-click", column, event);
     },
-    sortChange(column, prop, order) {
+    sortChange({ column, prop, order }) {
       // 当表格的排序条件发生变化的时候会触发该事件
       this.currentPage = 1;
       if (this.pagination == "client") {
+        if (prop) {
+          this.order = {};
+          this.order["prop"] = prop;
+          this.order["order"] = order;
+        } else {
+          this.order = null;
+        }
         return;
       }
-      this.$emit("sort-change", column, prop, order);
+      this.$emit("sort-change", prop, order);
     },
     filterChange(filters) {
       // 当表格的筛选条件发生变化的时候会触发该事件，参数的值是一个对象，对象的 key 是 column 的 columnKey，对应的 value 为用户选择的筛选条件的数组。
       this.currentPage = 1;
       if (this.pagination == "client") {
+        this.filters = filters;
         return;
       }
       this.$emit("filter-change", filters);

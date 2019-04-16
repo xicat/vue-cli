@@ -113,8 +113,8 @@ export default {
         return "no-pass";
       }
     },
-    sortChange(order) {
-      this.order = order;
+    sortChange(prop, order) {
+      this.order = { prop, order };
       this.getTableData();
     },
     filterChange(filters) {

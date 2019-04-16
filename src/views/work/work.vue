@@ -2,16 +2,20 @@
   <component :is="page"> </component>
 </template>
 <script>
-import workClientTable from "./components/workClientTable.vue";
-import workServerTable from "./components/workServerTable.vue";
-import eChart from "./components/echart.vue";
+const workClientTable = () => import("./components/workClientTable.vue");
+const workServerTable = () => import("./components/workServerTable.vue");
+const eChart = () => import("./components/echart.vue");
+const ciForm = () => import("./components/form.vue");
+const ciDialog = () => import("./components/dialog.vue");
 import { mapGetters } from "vuex";
 export default {
   name: "work",
   components: {
     workClientTable,
     workServerTable,
-    eChart
+    eChart,
+    ciForm,
+    ciDialog
   },
   data() {
     return {
