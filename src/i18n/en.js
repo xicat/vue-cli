@@ -7,6 +7,7 @@ export default {
     work: "Work",
     diary: "Diary",
     disport: "Disport",
+    object: "Object",
     family: "Family",
     about: "About",
     noData: "No Data",

@@ -29,6 +29,7 @@ export default {
         family: true,
         work: true,
         diary: true,
+        object: true,
         learn: true,
         disport: true,
         about: false

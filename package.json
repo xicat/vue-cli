@@ -52,15 +52,6 @@
       "parser": "babel-eslint"
     }
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "src/**/*.{js,vue}": [
-      "eslint --fix ",
-      "git add"
-    ]
-  },
   "postcss": {
     "plugins": {
       "autoprefixer": {}

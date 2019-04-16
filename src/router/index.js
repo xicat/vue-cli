@@ -19,13 +19,13 @@ export default new VueRouter({
           component: () => import("@/views/home/home.vue")
         },
         {
-          path: "family",
-          name: "Family",
+          path: "object",
+          name: "Object",
           meta: {
-            root: "family",
-            title: "common.family"
+            root: "object",
+            title: "common.object"
           },
-          component: () => import("@/views/family/family.vue")
+          component: () => import("@/views/object/object.vue")
         },
         {
           path: "work",
