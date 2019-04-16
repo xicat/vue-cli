@@ -1,9 +1,9 @@
 // initial state
 const state = {
   modals: [],
-  zIndex: 0,
-  currId: 0,
-  activeId: 0,
+  zIndex: 1,
+  currId: 1,
+  activeId: 1,
   activezIndex: 2000
 };
 
@@ -47,6 +47,7 @@ const mutations = {
   },
   delModal(state, id) {
     let modal = state.modals.find(item => item.id === id);
+    modal.id = null;
     modal = null;
     state.modals = state.modals.find(item => !item);
   },
