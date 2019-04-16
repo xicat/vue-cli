@@ -43,7 +43,7 @@ const mutations = {
     state.modals.push(modal);
   },
   delModal(state, id) {
-    state.modals = c;
+    let modal = state.modals.filter(item => item.id === id);
   },
   showModal(state, id) {
     let modal = state.modals.filter(item => item.id === id);
@@ -51,7 +51,9 @@ const mutations = {
   hideModal(state, id) {
     let modal = state.modals.filter(item => item.id === id);
   },
-  toTopModal(state, id) {}
+  toTopModal(state, id) {
+    let modal = state.modals.filter(item => item.id === id);
+  }
 };
 
 export default {
