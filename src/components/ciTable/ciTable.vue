@@ -405,7 +405,7 @@ export default {
     showTableData() {
       if (this.pagination == "client") {
         let data = this.tableData;
-        debugger;
+
         if (this.filters) {
           for (let attr in this.filters) {
             data = data.filter(
@@ -424,7 +424,6 @@ export default {
           });
         }
 
-        this.dataLength = data.length;
         return data.slice(
           (this.currentPage - 1) * this.pageSize,
           this.currentPage * this.pageSize
@@ -435,7 +434,16 @@ export default {
     },
     showTotal() {
       if (this.pagination == "client") {
-        return this.dataLength;
+        let data = this.tableData;
+
+        if (this.filters) {
+          for (let attr in this.filters) {
+            data = data.filter(
+              row => this.filters[attr].indexOf(row[attr]) > -1
+            );
+          }
+        }
+        return data.length;
       } else {
         return this.tableData[this.total];
       }
@@ -517,7 +525,7 @@ export default {
       // 当某一列的表头被点击时会触发该事件
       this.$emit("header-click", column, event);
     },
-    sortChange({ column, prop, order }) {
+    sortChange({ prop, order }) {
       // 当表格的排序条件发生变化的时候会触发该事件
       this.currentPage = 1;
       if (this.pagination == "client") {
