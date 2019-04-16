@@ -9,6 +9,7 @@
       </el-aside>
       <el-main class="content">
         <router-view></router-view>
+        <boxContainer></boxContainer>
       </el-main>
     </el-container>
   </el-container>
@@ -19,7 +20,8 @@ export default {
   name: "layout",
   components: {
     navMenu: () => import("./components/navMenu.vue"),
-    sideMenu: () => import("./components/sideMenu.vue")
+    sideMenu: () => import("./components/sideMenu.vue"),
+    boxContainer: () => import("@c/ciBox/boxContainer.vue")
   },
   data() {
     return {

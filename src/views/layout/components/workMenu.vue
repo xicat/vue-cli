@@ -5,7 +5,7 @@
     text-color="#fff"
     active-text-color="#1989fa"
     @select="select"
-    default-active="1-1"
+    :default-active="pageActive"
   >
     <el-submenu index="1">
       <template slot="title">
@@ -19,6 +19,10 @@
       <i class="el-icon-menu"></i>
       <span slot="title">表单</span>
     </el-menu-item>
+    <el-menu-item index="3">
+      <i class="el-icon-menu"></i>
+      <span slot="title">弹框</span>
+    </el-menu-item>
   </el-menu>
 </template>
 
@@ -26,6 +30,11 @@
 import { mapActions } from "vuex";
 export default {
   name: "workMenu",
+  data() {
+    return {
+      pageActive: "3"
+    };
+  },
   methods: {
     ...mapActions({
       setPage: "work/setPage"
@@ -35,6 +44,10 @@ export default {
         this.setPage("workClientTable");
       } else if (index == "1-2") {
         this.setPage("workServerTable");
+      } else if (index == "2") {
+        this.setPage("ciForm");
+      } else if (index == "3") {
+        this.setPage("ciDialog");
       }
     }
   }

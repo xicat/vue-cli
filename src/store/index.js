@@ -1,6 +1,7 @@
 import Vuex from "vuex"; // 引入 vuex
 import Vue from "vue";
 import work from "./modules/work";
+import modal from "./modules/modal";
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     count: state => state.count
   },
   modules: {
-    work
+    work,
+    modal
   }
 });
