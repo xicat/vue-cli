@@ -1,6 +1,6 @@
-export const Modal = function(type) {
+export default function(type) {
   if (type == "text") {
     this.height = 200;
     this.width = 300;
   }
-};
+}

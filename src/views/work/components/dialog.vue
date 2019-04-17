@@ -25,7 +25,7 @@ export default {
       newModal: "modal/newModal"
     }),
     addModal() {
-      let modal = {};
+      let modal = new Modal("text");
       modal.title = "hello world";
       modal.zIndex = this.zIndex;
       modal.id = this.currId;
