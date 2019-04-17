@@ -26,7 +26,7 @@ export default {
   },
   watch: {
     modals(val) {
-      this.showModals = val.fitler(modal => modal.show);
+      this.showModals = val.filter(modal => modal.show);
     }
   }
 };

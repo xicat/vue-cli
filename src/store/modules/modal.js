@@ -3,66 +3,66 @@ const state = {
   modals: [],
   zIndex: 1,
   currId: 1,
-  activeId: 1,
-  activezIndex: 2000
+  activeId: 1
 };
 
 // getters
 const getters = {
   modals: state => state.modals,
-  zIndex: state => state.zIndex,
-  currId: state => state.currId,
+  zIndex: state => state.zIndex++,
+  currId: state => state.currId++,
   activeId: state => state.activeId
 };
 
 // actions
 const actions = {
   newModal(state, modal) {
-    state.commit("addModal", modal);
+    state.commit("newModal", modal);
   },
-  delModal(state, id) {
-    state.commit("delModal", id);
+  delModal(state, modal) {
+    state.commit("delModal", modal);
   },
-  showModal(state, id) {
-    state.commit("showModal", id);
+  showModal(state, modal) {
+    state.commit("showModal", modal);
   },
-  hideModal(state, id) {
-    state.commit("hideModal", id);
+  maxModal(state, modal, flag) {
+    state.commit("maxModal", modal, flag);
   },
-  toTopModal(state, id) {
-    state.commit("toTopModal", id);
+  hideModal(state, modal) {
+    state.commit("hideModal", modal);
+  },
+  toTopModal(state, modal) {
+    state.commit("toTopModal", modal);
   }
 };
 
 // mutations
 const mutations = {
   newModal(state, modal) {
-    state.zIndex++;
-    state.currId++;
     modal.zIndex = state.zIndex;
     modal.currId = state.currId;
     modal.show = true;
     state.activeId = modal.currId;
     state.modals.push(modal);
   },
-  delModal(state, id) {
-    let modal = state.modals.find(item => item.id === id);
+  delModal(state, modal) {
     modal.id = null;
     modal = null;
-    state.modals = state.modals.find(item => !item);
+    state.modals = state.modals.filter(item => !item);
   },
-  showModal(state, id) {
-    let modal = state.modals.find(item => item.id === id);
+  showModal(state, modal) {
     modal.show = true;
-    state.activeId = id;
+    state.activeId = modal.id;
   },
-  hideModal(state, id) {
-    let modal = state.modals.find(item => item.id === id);
+  hideModal(state, modal) {
     modal.show = false;
     state.activeId = null;
   },
-  toTopModal(state, id) {
-    state.activeId = id;
+  toTopModal(state, modal) {
+    state.activeId = modal.id;
+  },
+  maxModal(state, modal, flag) {
+    modal.max = flag;
   }
 };
 
