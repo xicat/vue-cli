@@ -29,7 +29,6 @@ export default {
       modal.title = "hello world";
       modal.zIndex = this.zIndex;
       modal.id = this.currId;
-      console.log("zIndex", this.zIndex);
       this.newModal(modal);
     }
   }
