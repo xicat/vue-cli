@@ -9,8 +9,8 @@ const state = {
 // getters
 const getters = {
   modals: state => state.modals,
-  zIndex: state => state.zIndex++,
-  currId: state => state.currId++,
+  zIndex: state => state.zIndex,
+  currId: state => state.currId,
   activeId: state => state.activeId
 };
 
@@ -39,16 +39,15 @@ const actions = {
 // mutations
 const mutations = {
   newModal(state, modal) {
-    modal.zIndex = state.zIndex;
-    modal.currId = state.currId;
+    modal.zIndex = state.zIndex++;
+    modal.currId = state.currId++;
     modal.show = true;
     state.activeId = modal.currId;
     state.modals.push(modal);
   },
   delModal(state, modal) {
-    modal.id = null;
+    state.modals = state.modals.filter(item => item.id !== modal.id);
     modal = null;
-    state.modals = state.modals.filter(item => !item);
   },
   showModal(state, modal) {
     modal.show = true;
@@ -60,6 +59,7 @@ const mutations = {
   },
   toTopModal(state, modal) {
     state.activeId = modal.id;
+    modal.zIndex = state.zIndex++;
   },
   maxModal(state, modal, flag) {
     modal.max = flag;

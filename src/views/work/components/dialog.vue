@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import Modal from "@/utils/win/box";
 export default {
   name: "ciDialog",
   data() {
@@ -13,12 +14,23 @@ export default {
       pageName: "dialog"
     };
   },
+  computed: {
+    ...mapGetters({
+      zIndex: "modal/zIndex",
+      currId: "modal/currId"
+    })
+  },
   methods: {
     ...mapActions({
       newModal: "modal/newModal"
     }),
     addModal() {
-      this.newModal({ title: "hello world" });
+      let modal = {};
+      modal.title = "hello world";
+      modal.zIndex = this.zIndex;
+      modal.id = this.currId;
+      console.log("zIndex", this.zIndex);
+      this.newModal(modal);
     }
   }
 };
