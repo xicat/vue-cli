@@ -23,6 +23,10 @@
       <i class="el-icon-menu"></i>
       <span slot="title">弹框</span>
     </el-menu-item>
+    <el-menu-item index="4">
+      <i class="el-icon-menu"></i>
+      <span slot="title">新表格</span>
+    </el-menu-item>
   </el-menu>
 </template>
 
@@ -32,7 +36,7 @@ export default {
   name: "workMenu",
   data() {
     return {
-      pageActive: "3"
+      pageActive: "4"
     };
   },
   methods: {
@@ -48,6 +52,8 @@ export default {
         this.setPage("ciForm");
       } else if (index == "3") {
         this.setPage("ciDialog");
+      } else if (index == "4") {
+        this.setPage("mTable");
       }
     }
   }

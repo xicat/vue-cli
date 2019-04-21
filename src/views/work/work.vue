@@ -6,6 +6,7 @@ const workClientTable = () => import("./components/workClientTable.vue");
 const workServerTable = () => import("./components/workServerTable.vue");
 const eChart = () => import("./components/echart.vue");
 const ciForm = () => import("./components/form.vue");
+const mTable = () => import("./components/mTable.vue");
 const ciDialog = () => import("./components/dialog.vue");
 import { mapGetters } from "vuex";
 export default {
@@ -15,11 +16,12 @@ export default {
     workServerTable,
     eChart,
     ciForm,
+    mTable,
     ciDialog
   },
   data() {
     return {
-      page: "ciDialog"
+      page: "mTable"
     };
   },
   computed: {
