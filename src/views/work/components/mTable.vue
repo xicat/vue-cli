@@ -2,15 +2,18 @@
   <my-table :data="tableData" style="width: 100%">
     <my-table-column prop="date" label="日期" width="180"> </my-table-column>
     <my-table-column prop="name" label="姓名" width="180"> </my-table-column>
-    <my-table-column prop="address" label="地址"
-    	      :filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"
-    	> </my-table-column>
+    <my-table-column
+      prop="address"
+      label="地址"
+      :filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"
+    >
+    </my-table-column>
   </my-table>
 </template>
 
 <script>
-import MyTable from "@c/ciTable/table/table.vue";
-import MyTableColumn from "@c/ciTable/table/table-column.js";
+import MyTable from "@/libs/table/table.vue";
+import MyTableColumn from "@/libs/table/table-column.js";
 export default {
   name: "mTable",
   components: {

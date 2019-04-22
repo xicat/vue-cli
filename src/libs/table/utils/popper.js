@@ -1,49 +1,3 @@
-/**
- * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version {{version}}
- * @license
- * Copyright (c) 2016 Federico Zivolo and contributors
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
-//
-// Cross module loader
-// Supported: Node, AMD, Browser globals
-//
-(function(root, factory) {
-
-  if (typeof define === "function" && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(factory);
-  } else if (typeof module === "object" && module.exports) {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like environments that support module.exports,
-    // like Node.
-    module.exports = factory();
-  } else {
-    // Browser globals (root is window)
-   var root = window;
-    root.Popper = factory();
-
-  }
-})(this, function() {
   "use strict";
 
   var root = window;
@@ -156,7 +110,7 @@
    * @param {Boolean} [options.removeOnDestroy=false]
    *      Set to true if you want to automatically remove the popper when you call the `destroy` method.
    */
-  function Popper(reference, popper, options) {
+  export function Popper(reference, popper, options) {
     this._reference = reference.jquery ? reference[0] : reference;
     this.state = {};
 
@@ -1372,49 +1326,5 @@
     return null;
   }
 
-  /**
-   * The Object.assign() method is used to copy the values of all enumerable own properties from one or more source
-   * objects to a target object. It will return the target object.
-   * This polyfill doesn't support symbol properties, since ES5 doesn't have symbols anyway
-   * Source: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-   * @function
-   * @ignore
-   */
-  if (!Object.assign) {
-    Object.defineProperty(Object, "assign", {
-      enumerable: false,
-      configurable: true,
-      writable: true,
-      value: function(target) {
-        if (target === undefined || target === null) {
-          throw new TypeError("Cannot convert first argument to object");
-        }
 
-        var to = Object(target);
-        for (var i = 1; i < arguments.length; i++) {
-          var nextSource = arguments[i];
-          if (nextSource === undefined || nextSource === null) {
-            continue;
-          }
-          nextSource = Object(nextSource);
 
-          var keysArray = Object.keys(nextSource);
-          for (
-            var nextIndex = 0, len = keysArray.length;
-            nextIndex < len;
-            nextIndex++
-          ) {
-            var nextKey = keysArray[nextIndex];
-            var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
-            if (desc !== undefined && desc.enumerable) {
-              to[nextKey] = nextSource[nextKey];
-            }
-          }
-        }
-        return to;
-      }
-    });
-  }
-	console.log('Popper',Popper)
-  return Popper;
-});
