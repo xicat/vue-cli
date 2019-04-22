@@ -1,12 +1,30 @@
 <template>
   <transition name="el-zoom-in-top">
+  	<div
+  		v-if="isNotEq"
+      class="el-table-filter"
+      v-clickoutside="handleOutsideClick"
+      v-show="showPopper"  		
+  		>
+  	<input type="text" v-model="filteredValue" />	
+    <div class="el-table-filter__bottom">
+      <button
+        @click="handleConfirm"
+        :class="{ 'is-disabled': filteredValue.length === 0 }"
+        :disabled="filteredValue.length === 0"
+      >
+        {{ t("el.table.confirmFilter") }}
+      </button>
+      <button @click="handleReset">{{ t("el.table.resetFilter") }}</button>
+    </div>  	
+  	</div>
     <div
       class="el-table-filter"
-      v-if="multiple"
+      v-else-if="multiple"
       v-clickoutside="handleOutsideClick"
       v-show="showPopper"
     >
-      <div class="el-table-filter__content xxxx">
+      <div class="el-table-filter__content">
         <el-scrollbar wrap-class="el-table-filter__wrap">
           <el-checkbox-group
             class="el-table-filter__checkbox-group"
@@ -21,7 +39,7 @@
           </el-checkbox-group>
         </el-scrollbar>
       </div>
-      <div class="el-table-filter__bottom ttt">
+      <div class="el-table-filter__bottom">
         <button
           @click="handleConfirm"
           :class="{ 'is-disabled': filteredValue.length === 0 }"
@@ -115,12 +133,17 @@ export default {
     },
 
     handleConfirm() {
-      this.confirmFilter(this.filteredValue);
+      this.confirmFilter(this.filteredValue,this.filterType);
       this.handleOutsideClick();
     },
 
     handleReset() {
-      this.filteredValue = [];
+      
+      if(this.isNotEq){
+      	this.filteredValue = '';
+      }else{
+      	this.filteredValue = [];
+      }
       this.confirmFilter(this.filteredValue);
       this.handleOutsideClick();
     },
@@ -158,7 +181,9 @@ export default {
     filters() {
       return this.column && this.column.filters;
     },
-
+		isNotEq() {
+			return this.column && this.column.filterType
+		},
     filterValue: {
       get() {
         return (this.column.filteredValue || [])[0];

@@ -7,7 +7,7 @@
     element-loading-background="rgba(255, 255, 255, 0.8)"
     @mouseover="mouseover"
   >
-    <el-table
+    <my-table
       ref="table"
       :data="showTableData"
       :stripe="stripe"
@@ -53,7 +53,7 @@
       @expand-change="expandChange"
     >
       <template v-for="(column, index) in columns">
-        <el-table-column
+        <my-table-column
           v-if="isCustom(column.field)"
           :key="index"
           :prop="column.field"
@@ -81,6 +81,7 @@
           :filter-placement="column.filterPlacement"
           :filter-multiple="column.filterMultiple"
           :filter-method="column.filterMethod"
+          :filter-type="column.filterType"
           :filtered-value="column.filteredValue"
         >
           <template slot-scope="scope">
@@ -91,8 +92,8 @@
               :column="column"
             />
           </template>
-        </el-table-column>
-        <el-table-column
+        </my-table-column>
+        <my-table-column
           v-else
           :key="index"
           :prop="column.field"
@@ -120,16 +121,17 @@
           :filter-placement="column.filterPlacement"
           :filter-multiple="column.filterMultiple"
           :filter-method="column.filterMethod"
+          :filter-type="column.filterType"
           :filtered-value="column.filteredValue"
         >
-        </el-table-column>
+        </my-table-column>
       </template>
       <template slot="empty">
         <div class="nodata" v-show="!loading">
           {{ $t(emptyText) }}
         </div>
       </template>
-    </el-table>
+    </my-table>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -144,8 +146,14 @@
   </div>
 </template>
 <script>
+import MyTable from "@/libs/table/table.vue";
+import MyTableColumn from "@/libs/table/table-column.js";
 export default {
   name: "ci-table",
+  components: {
+    MyTable,
+    MyTableColumn
+  },
   props: {
     customColumns: {
       type: Array,
@@ -407,21 +415,11 @@ export default {
         let data = this.tableData;
 
         if (this.filters) {
-          for (let attr in this.filters) {
-            data = data.filter(
-              row => this.filters[attr].indexOf(row[attr]) > -1
-            );
-          }
+          data = this.filterFun(data);
         }
 
         if (this.order) {
-          data.sort((a, b) => {
-            if (this.order.order == "descending") {
-              return b[this.order.prop] - a[this.order.prop];
-            } else {
-              return a[this.order.prop] - b[this.order.prop];
-            }
-          });
+          data = this.sortFun(data);
         }
 
         return data.slice(
@@ -437,11 +435,7 @@ export default {
         let data = this.tableData;
 
         if (this.filters) {
-          for (let attr in this.filters) {
-            data = data.filter(
-              row => this.filters[attr].indexOf(row[attr]) > -1
-            );
-          }
+          data = this.filterFun(data);
         }
         return data.length;
       } else {
@@ -455,6 +449,34 @@ export default {
   },
   updated() {},
   methods: {
+    filterFun(data) {
+      Object.keys(this.filters).forEach(columnKey => {
+        const values = this.filters[columnKey];
+
+        if (!values || values.length === 0) return;
+        const column = this.columns.find(
+          column => column.columnKey == columnKey
+        );
+
+        if (column && column.filterMethod) {
+          data = data.filter(row => {
+            return values.some(value =>
+              column.filterMethod.call(null, value, row, column)
+            );
+          });
+        }
+      });
+      return data;
+    },
+    sortFun(data) {
+      return data.sort((a, b) => {
+        if (this.order.order == "descending") {
+          return b[this.order.prop] - a[this.order.prop];
+        } else {
+          return a[this.order.prop] - b[this.order.prop];
+        }
+      });
+    },
     isCustom(col) {
       if (!this.customColumns) {
         return false;
@@ -543,6 +565,7 @@ export default {
     filterChange(filters) {
       // 当表格的筛选条件发生变化的时候会触发该事件，参数的值是一个对象，对象的 key 是 column 的 columnKey，对应的 value 为用户选择的筛选条件的数组。
       this.currentPage = 1;
+      console.log("filterChange", filters);
       if (this.pagination == "client") {
         this.filters = filters;
         return;

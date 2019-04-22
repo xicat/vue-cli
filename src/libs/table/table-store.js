@@ -312,6 +312,7 @@ TableStore.prototype.mutations = {
   },
 
   filterChange(states, options) {
+
     let { column, values, silent, multi } = options;
     if (values && !Array.isArray(values)) {
       values = [values];
@@ -321,14 +322,14 @@ TableStore.prototype.mutations = {
     if (multi) {
       column.forEach(col => {
         states.filters[col.id] = values;
-        filters[col.columnKey || col.id] = values;
+       
       });
     } else {
       const prop = column.property;
 
       if (prop) {
         states.filters[column.id] = values;
-        filters[column.columnKey || column.id] = values;
+        
       }
     }
 
@@ -336,8 +337,13 @@ TableStore.prototype.mutations = {
 
     Object.keys(states.filters).forEach(columnId => {
       const values = states.filters[columnId];
-      if (!values || values.length === 0) return;
       const column = getColumnById(this.states, columnId);
+ 
+      if (!values || values.length === 0) return;
+      
+      if(column.columnKey){
+      	filters[column.columnKey] = values;
+      }      
       if (column && column.filterMethod) {
         data = data.filter(row => {
           return values.some(value =>

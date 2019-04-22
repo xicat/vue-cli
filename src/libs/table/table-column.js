@@ -196,6 +196,7 @@ export default {
     filteredValue: Array,
     filters: Array,
     filterPlacement: String,
+    filterType:String,
     filterMultiple: {
       type: Boolean,
       default: true
@@ -295,6 +296,7 @@ export default {
       fixed: this.fixed === "" ? true : this.fixed,
       filterMethod: this.filterMethod,
       filters: this.filters,
+      filterType: this.filterType,
       filterable: this.filters || this.filterMethod,
       filterMultiple: this.filterMultiple,
       filterOpened: false,

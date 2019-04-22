@@ -55,7 +55,12 @@ export default {
           field: "score",
           title: "成绩",
           width: "220",
-          sortable: true
+          sortable: true,
+          filterType: "text",
+          columnKey: "score",
+          filterMethod: function(value, row) {
+            return row.score >= value;
+          }
         },
         {
           field: "age",
@@ -78,7 +83,12 @@ export default {
         {
           field: "address",
           title: "地址",
-          width: "240"
+          width: "240",
+          filterType: "text",
+          columnKey: "address",
+          filterMethod: function(value, row) {
+            return row.address.indexOf(value) > -1;
+          }
         }
       ];
     }
