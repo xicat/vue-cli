@@ -77,7 +77,7 @@ export default {
       return this.activeId == this.modal.id;
     },
     showTitle() {
-      return this.modal.string ? $(this.modal.string) : this.modal.title;
+      return this.modal.string ? this.$t(this.modal.string) : this.modal.title;
     }
   },
   watch: {
