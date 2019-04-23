@@ -7,6 +7,17 @@ import store from "./store/";
 import i18n from "./i18n/lang";
 
 import "@/assets/css/index.css";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(fas, far, fab);
+
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+
 if (process.env.VUE_APP_MOCK === "mock") {
   require("../mock");
   require("es6-promise").polyfill();

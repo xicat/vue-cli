@@ -344,23 +344,12 @@ TableStore.prototype.mutations = {
       if(column.columnKey){
       	filters[column.columnKey] = values;
       }      
-      if (column && column.filterMethod) {
-        data = data.filter(row => {
-          return values.some(value =>
-            column.filterMethod.call(null, value, row, column)
-          );
-        });
-      }
-    });
 
-    states.filteredData = data;
-    states.data = sortData(data, states);
+    });
 
     if (!silent) {
       this.table.$emit("filter-change", filters);
     }
-
-    Vue.nextTick(() => this.table.updateScrollY());
   },
 
   insertColumn(states, column, index, parent) {

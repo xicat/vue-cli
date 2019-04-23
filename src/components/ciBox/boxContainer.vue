@@ -15,18 +15,14 @@ export default {
     vBox
   },
   data() {
-    return {
-      showModals: null
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
       modals: "modal/modals"
-    })
-  },
-  watch: {
-    modals(val) {
-      this.showModals = val.filter(modal => modal.show);
+    }),
+    showModals() {
+      return this.modals.filter(modal => modal.show);
     }
   }
 };

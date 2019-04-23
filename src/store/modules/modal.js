@@ -19,50 +19,88 @@ const actions = {
   newModal(state, modal) {
     state.commit("newModal", modal);
   },
-  delModal(state, modal) {
-    state.commit("delModal", modal);
+  delModal(state, id) {
+    state.commit("delModal", id);
   },
-  showModal(state, modal) {
-    state.commit("showModal", modal);
+  showModal(state, id) {
+    state.commit("showModal", id);
   },
-  maxModal(state, modal, flag) {
-    state.commit("maxModal", modal, flag);
+  toggleModal(state, id) {
+    state.commit("toggleModal", id);
   },
-  hideModal(state, modal) {
-    state.commit("hideModal", modal);
+  maxModal(state, { id, flag }) {
+    state.commit("maxModal", { id, flag });
   },
-  toTopModal(state, modal) {
-    state.commit("toTopModal", modal);
+  hideModal(state, id) {
+    state.commit("hideModal", id);
+  },
+  toTopModal(state, id) {
+    state.commit("toTopModal", id);
+  },
+  refreshModal(state, { id, style }) {
+    state.commit("refreshModal", { id, style });
   }
 };
 
 // mutations
 const mutations = {
   newModal(state, modal) {
-    modal.zIndex = state.zIndex++;
-    modal.currId = state.currId++;
-    modal.show = true;
+    state.currId++;
+    state.zIndex++;
     state.activeId = modal.currId;
     state.modals.push(modal);
   },
-  delModal(state, modal) {
-    state.modals = state.modals.filter(item => item.id !== modal.id);
+  delModal(state, id) {
+    let modal = getModalById(id);
+    if (!modal) {
+      return;
+    }
     modal = null;
+    state.modals = state.modals.filter(item => !item);
   },
-  showModal(state, modal) {
+  showModal(state, id) {
+    let modal = getModalById(id);
+    if (!modal) {
+      return;
+    }
     modal.show = true;
     state.activeId = modal.id;
   },
-  hideModal(state, modal) {
+  hideModal(state, id) {
+    let modal = getModalById(id);
+    if (!modal) {
+      return;
+    }
     modal.show = false;
-    state.activeId = null;
   },
-  toTopModal(state, modal) {
+  toggleModal(state, id) {
+    let modal = getModalById(id);
+    if (!modal) {
+      return;
+    }
+    modal.show = !modal.show;
+  },
+  toTopModal(state, id) {
+    let modal = getModalById(id);
+    if (!modal) {
+      return;
+    }
     state.activeId = modal.id;
     modal.zIndex = state.zIndex++;
   },
-  maxModal(state, modal, flag) {
-    modal.max = flag;
+  maxModal(state, { id, flag }) {
+    let modal = getModalById(id);
+    if (!modal) {
+      return;
+    }
+    modal.isMax = flag;
+  },
+  refreshModal(state, { id, style }) {
+    let modal = getModalById(id);
+    if (!modal) {
+      return;
+    }
+    modal.win.style = style;
   }
 };
 
@@ -73,3 +111,7 @@ export default {
   actions,
   mutations
 };
+
+function getModalById(id) {
+  return state.modals.find(modal => modal.id == id);
+}

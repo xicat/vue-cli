@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="bar">
+      <el-button
+        @click="toggle(modal.id)"
+        v-for="modal in modals"
+        :key="modal.id"
+        >{{ modal.title }}</el-button
+      >
+    </div>
     <el-button type="primary" @click="addModal">add</el-button>
   </div>
 </template>
@@ -11,25 +19,27 @@ export default {
   name: "ciDialog",
   data() {
     return {
-      pageName: "dialog"
+      pageName: "dialog",
+      zIndex: 1
     };
   },
   computed: {
     ...mapGetters({
-      zIndex: "modal/zIndex",
-      currId: "modal/currId"
+      modals: "modal/modals"
     })
   },
   methods: {
     ...mapActions({
-      newModal: "modal/newModal"
+      newModal: "modal/newModal",
+      toggleModal: "modal/toggleModal"
     }),
     addModal() {
-      let modal = new Modal("text");
-      modal.title = "hello world";
-      modal.zIndex = this.zIndex;
-      modal.id = this.currId;
+      let modal = new Modal(this, "text");
+      modal.title = "hello world" + this.zIndex++;
       this.newModal(modal);
+    },
+    toggle(id) {
+      this.toggleModal(id);
     }
   }
 };

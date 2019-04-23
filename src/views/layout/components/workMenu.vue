@@ -23,10 +23,6 @@
       <i class="el-icon-menu"></i>
       <span slot="title">弹框</span>
     </el-menu-item>
-    <el-menu-item index="4">
-      <i class="el-icon-menu"></i>
-      <span slot="title">新表格</span>
-    </el-menu-item>
   </el-menu>
 </template>
 
