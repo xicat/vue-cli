@@ -82,15 +82,8 @@ export default {
     }
   },
   watch: {
-    "modal.win"(win) {
-      this.win = Object.assign({}, win);
-    },
     zIndex(val) {
-      console.log(this.modal.id, val);
       this.win.style["z-index"] = val;
-    },
-    "modal.win.show"() {
-      console.log("show", this.modal.id, val);
     }
   },
   mounted() {

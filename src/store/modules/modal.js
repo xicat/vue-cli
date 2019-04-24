@@ -88,7 +88,6 @@ const mutations = {
     if (!modal) {
       return;
     }
-    debugger;
     state.modals.push(modal);
     state.modals.splice(index, 1);
     state.activeId = id;
