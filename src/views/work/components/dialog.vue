@@ -2,8 +2,8 @@
   <div>
     <div class="bar">
       <el-button
-        @click="toggle(modal.id)"
-        v-for="modal in modals"
+        @click="toggle(modal)"
+        v-for="modal in showModals"
         :key="modal.id"
         >{{ modal.title }}</el-button
       >
@@ -26,7 +26,20 @@ export default {
   computed: {
     ...mapGetters({
       modals: "modal/modals"
-    })
+    }),
+    showModals() {
+      return this.modals
+        .map(row => {
+          return {
+            id: row.id,
+            title: row.title,
+            show: row.show
+          };
+        })
+        .sort(function(a, b) {
+          return a.id - b.id;
+        });
+    }
   },
   methods: {
     ...mapActions({
@@ -34,12 +47,12 @@ export default {
       toggleModal: "modal/toggleModal"
     }),
     addModal() {
-      let modal = new Modal(this, "text");
+      let modal = new Modal("text");
       modal.title = "hello world" + this.zIndex++;
       this.newModal(modal);
     },
-    toggle(id) {
-      this.toggleModal(id);
+    toggle(modal) {
+      this.toggleModal(modal);
     }
   }
 };

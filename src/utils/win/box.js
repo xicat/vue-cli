@@ -8,14 +8,12 @@ const win = {
     top: "50%",
     left: "50%",
     height: "",
-    width: "",
-    "z-index": 1
+    width: ""
   }
 };
 
-export default function(vue, type) {
+export default function(type) {
   this.win = Object.assign({}, win);
-  this.id = vue.$store.getters["modal/currId"];
   this.show = true;
   if (type == "text") {
     this.win.style.height = "200px";

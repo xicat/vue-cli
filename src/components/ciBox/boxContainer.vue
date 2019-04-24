@@ -1,7 +1,7 @@
 <template>
   <div class="box-container">
-    <template v-for="modal in showModals">
-      <vBox :modal="modal" :key="modal.id" />
+    <template v-for="(modal, index) in showModals">
+      <vBox :modal="modal" :key="modal.id + '-' + index" :zIndex="index + 1" />
     </template>
   </div>
 </template>

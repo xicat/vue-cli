@@ -1,10 +1,10 @@
 <template>
-  <div class="ci-box" :style="win.style" @click="modalActive">
+  <div class="ci-box" :style="win.style" @click.stop="modalActive">
     <div
       :class="['header', isActive ? 'active' : '']"
       draggable="true"
-      @dragstart="dragstart"
-      @dragend="dragend"
+      @dragstart.stop="dragstart"
+      @dragend.stop="dragend"
     >
       <span class="title">{{ showTitle }}</span>
       <div class="win-btn">
@@ -44,7 +44,8 @@ export default {
           win: null
         };
       }
-    }
+    },
+    zIndex: Number
   },
   data() {
     return {
@@ -81,15 +82,28 @@ export default {
     }
   },
   watch: {
-    "modal.win"(val) {
-      this.win = val;
+    "modal.win"(win) {
+      this.win = Object.assign({}, win);
+    },
+    zIndex(val) {
+      console.log(this.modal.id, val);
+      this.win.style["z-index"] = val;
+    },
+    "modal.win.show"() {
+      console.log("show", this.modal.id, val);
     }
   },
   mounted() {
     if (!this.modal.win) {
       return;
     }
-    this.win = this.modal.win;
+    this.win = Object.assign({}, this.modal.win);
+    this.win.style = Object.assign({}, this.modal.win.style);
+    this.$nextTick(() => {
+      this.top = this.$el.offsetTop;
+      this.left = this.$el.offsetLeft;
+    });
+
     if (this.win.isMax) {
       Object.assign(this.win.style, {
         top: 0,
@@ -113,12 +127,12 @@ export default {
     min(id) {
       this.win.isMax = false;
       this.maxModal({ id, flag: false });
-      Object.assign(this.win.style, this.modal.win.style);
+      this.win.style = Object.assign({}, this.modal.win.style);
     },
     max(id) {
       this.win.isMax = true;
       this.maxModal({ id, flag: true });
-      Object.assign(this.win.style, {
+      this.win.style = Object.assign({}, this.win.style, {
         top: 0,
         left: 0,
         height: "100%",
@@ -129,7 +143,7 @@ export default {
       this.delModal(id);
     },
     modalActive() {
-      if (this.modal.id !== this.activeId) this.toTopModal(this.modal);
+      if (this.modal.id !== this.activeId) this.toTopModal(this.modal.id);
     },
     dragstart(ev) {
       this.x = ev.x;

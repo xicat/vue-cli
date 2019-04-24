@@ -1,7 +1,6 @@
 // initial state
 const state = {
   modals: [],
-  zIndex: 1,
   currId: 1,
   activeId: 1
 };
@@ -9,7 +8,6 @@ const state = {
 // getters
 const getters = {
   modals: state => state.modals,
-  zIndex: state => state.zIndex,
   currId: state => state.currId,
   activeId: state => state.activeId
 };
@@ -24,9 +22,16 @@ const actions = {
   },
   showModal(state, id) {
     state.commit("showModal", id);
+    state.commit("toTopModal", id);
   },
-  toggleModal(state, id) {
-    state.commit("toggleModal", id);
+  toggleModal(state, modal) {
+    if (modal.show) {
+      //当前正显示
+      state.commit("hideModal", modal.id);
+    } else {
+      state.commit("showModal", modal.id);
+      state.commit("toTopModal", modal.id);
+    }
   },
   maxModal(state, { id, flag }) {
     state.commit("maxModal", { id, flag });
@@ -46,17 +51,18 @@ const actions = {
 const mutations = {
   newModal(state, modal) {
     state.currId++;
-    state.zIndex++;
-    state.activeId = modal.currId;
+    modal.id = state.currId;
+    state.activeId = modal.id;
     state.modals.push(modal);
   },
   delModal(state, id) {
     let modal = getModalById(id);
+    let index = getIndexById(id);
     if (!modal) {
       return;
     }
     modal = null;
-    state.modals = state.modals.filter(item => !item);
+    state.modals.splice(index, 1);
   },
   showModal(state, id) {
     let modal = getModalById(id);
@@ -64,7 +70,6 @@ const mutations = {
       return;
     }
     modal.show = true;
-    state.activeId = modal.id;
   },
   hideModal(state, id) {
     let modal = getModalById(id);
@@ -72,21 +77,21 @@ const mutations = {
       return;
     }
     modal.show = false;
-  },
-  toggleModal(state, id) {
-    let modal = getModalById(id);
-    if (!modal) {
-      return;
+    if (state.activeId == id) {
+      state.activeId = null;
     }
-    modal.show = !modal.show;
   },
+
   toTopModal(state, id) {
     let modal = getModalById(id);
+    let index = getIndexById(id);
     if (!modal) {
       return;
     }
-    state.activeId = modal.id;
-    modal.zIndex = state.zIndex++;
+    debugger;
+    state.modals.push(modal);
+    state.modals.splice(index, 1);
+    state.activeId = id;
   },
   maxModal(state, { id, flag }) {
     let modal = getModalById(id);
@@ -100,7 +105,8 @@ const mutations = {
     if (!modal) {
       return;
     }
-    modal.win.style = style;
+    modal.win.style = Object.assign({}, style);
+    style = null;
   }
 };
 
@@ -114,4 +120,14 @@ export default {
 
 function getModalById(id) {
   return state.modals.find(modal => modal.id == id);
+}
+function getIndexById(id) {
+  let index = -1;
+  state.modals.forEach((modal, i) => {
+    if (modal.id == id) {
+      index = i;
+      return false;
+    }
+  });
+  return index;
 }
