@@ -18,7 +18,7 @@ import workShop from "@/views/website/workShop.vue";
 export default {
   data() {
     return {
-      layoutStyle: ""
+      layoutStyle: -1
     };
   },
   components: {
