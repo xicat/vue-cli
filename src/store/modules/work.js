@@ -1,17 +1,22 @@
 // initial state
 const state = {
-  page: null
+  page: null,
+  menu: null
 };
 
 // getters
 const getters = {
-  page: state => state.page
+  page: state => state.page,
+  menu: state => state.menu
 };
 
 // actions
 const actions = {
   setPage(state, page) {
     state.commit("setPage", page);
+  },
+  setMenu(state, menu) {
+    state.commit("setMenu", menu);
   }
 };
 
@@ -19,6 +24,9 @@ const actions = {
 const mutations = {
   setPage(state, page) {
     state.page = page;
+  },
+  setMenu(state, menu) {
+    state.menu = menu;
   }
 };
 

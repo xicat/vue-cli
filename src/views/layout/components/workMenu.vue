@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "workMenu",
   data() {
@@ -39,21 +39,38 @@ export default {
       pageActive: "4"
     };
   },
+  computed: {
+    ...mapGetters({
+      aciveMenu: "work/menu"
+    })
+  },
+  watch: {
+    aciveMenu(val) {
+      this.pageActive = val;
+      this.select(val);
+    }
+  },
   methods: {
     ...mapActions({
-      setPage: "work/setPage"
+      setPage: "work/setPage",
+      setMenu: "work/setMenu"
     }),
     select(index) {
       if (index == "1-1") {
         this.setPage("workClientTable");
+        this.setMenu("1-1");
       } else if (index == "1-2") {
         this.setPage("workServerTable");
+        this.setMenu("1-2");
       } else if (index == "2") {
         this.setPage("ciForm");
+        this.setMenu("2");
       } else if (index == "3") {
         this.setPage("ciDialog");
+        this.setMenu("3");
       } else if (index == "4") {
         this.setPage("makeWebsite");
+        this.setMenu("4");
       }
     }
   }
