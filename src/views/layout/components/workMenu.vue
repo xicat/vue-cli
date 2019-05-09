@@ -36,7 +36,7 @@ export default {
   name: "workMenu",
   data() {
     return {
-      pageActive: "4"
+      pageActive: "1-2"
     };
   },
   computed: {

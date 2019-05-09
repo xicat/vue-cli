@@ -1,17 +1,24 @@
 <template>
-  <ci-table
-    :tableData="tableData"
-    :columns="columns"
-    :loading="loading"
-    :customColumns="customColumns"
-    @page-change="pageChange"
-    @sort-change="sortChange"
-    @filter-change="filterChange"
-  >
-    <template slot="score" slot-scope="scope">
-      <span :style="showNoPass(scope.row)">{{ scope.row.score }}</span>
-    </template>
-  </ci-table>
+  <div class="box">
+    <el-row :gutter="20">
+      <el-col :span="4">过滤</el-col>
+    </el-row>
+    <div class="table-box">
+      <ci-table
+        :tableData="tableData"
+        :columns="columns"
+        :loading="loading"
+        :customColumns="customColumns"
+        @page-change="pageChange"
+        @sort-change="sortChange"
+        @filter-change="filterChange"
+      >
+        <template slot="score" slot-scope="scope">
+          <span :style="showNoPass(scope.row)">{{ scope.row.score }}</span>
+        </template>
+      </ci-table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -119,7 +126,11 @@ export default {
     },
     filterChange(filters) {
       this.filters = filters;
+      this.showFilter();
       this.getTableData();
+    },
+    showFilter() {
+      console.log(this.filters);
     },
     showNoPass(row) {
       if (row.score < 60) {
@@ -133,4 +144,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.box {
+  width: 100%;
+  height: 100%;
+}
+.table-box {
+  width: 100%;
+  height: calc(100% - 40px);
+}
+.el-row {
+  height: 40px;
+  line-height: 40px;
+}
+</style>

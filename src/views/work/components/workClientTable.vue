@@ -3,6 +3,7 @@
     :tableData="tableData"
     :columns="columns"
     :loading="loading"
+    @filter-change="filterChange"
   ></ci-table>
 </template>
 
@@ -108,4 +109,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

@@ -565,7 +565,6 @@ export default {
     filterChange(filters) {
       // 当表格的筛选条件发生变化的时候会触发该事件，参数的值是一个对象，对象的 key 是 column 的 columnKey，对应的 value 为用户选择的筛选条件的数组。
       this.currentPage = 1;
-      console.log("filterChange", filters);
       if (this.pagination == "client") {
         this.filters = filters;
         return;
