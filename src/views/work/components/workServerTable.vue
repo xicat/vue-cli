@@ -1,7 +1,13 @@
 <template>
   <div class="box">
     <el-row :gutter="20">
-      <el-col :span="4">过滤</el-col>
+      <el-col :span="3">过滤</el-col>
+      <el-col :span="12">
+        <filter-bar
+          :list="filterList"
+          @remove-filter="removeFilter"
+        ></filter-bar>
+      </el-col>
     </el-row>
     <div class="table-box">
       <ci-table
@@ -24,10 +30,12 @@
 <script>
 import { getTableData } from "../api";
 import ciTable from "@c/ciTable/ciTable.vue";
+import filterBar from "./filterBar.vue";
 export default {
   name: "workServerTable",
   components: {
-    ciTable
+    ciTable,
+    filterBar
   },
   data() {
     return {
@@ -35,7 +43,8 @@ export default {
       customColumns: ["score"],
       loading: false,
       tableData: [],
-      filters: null,
+      filters: [],
+      filterList: [],
       order: null
     };
   },
@@ -82,6 +91,7 @@ export default {
           field: "gender",
           title: "性别",
           width: "120",
+          type: "=",
           columnKey: "gender",
           filters: [
             { text: "girl", value: "girl" },
@@ -129,8 +139,31 @@ export default {
       this.showFilter();
       this.getTableData();
     },
+    removeFilter(key) {
+      console.log(key);
+    },
     showFilter() {
-      console.log(this.filters);
+      this.filterList = [];
+      for (let item in this.filters) {
+        this.filterList.push({
+          key: item,
+          title: this.getColumnTitle(item),
+          type: this.getColumnType(item),
+          value: this.getColumnFilter(item, this.filters[item])
+        });
+      }
+    },
+    getColumnByField(field) {
+      return this.columns.filter(col => col.field == field)[0];
+    },
+    getColumnTitle(key) {
+      return this.getColumnByField(key).title;
+    },
+    getColumnType(key) {
+      return this.getColumnByField(key).type;
+    },
+    getColumnFilter(key, value) {
+      return value.join();
     },
     showNoPass(row) {
       if (row.score < 60) {
