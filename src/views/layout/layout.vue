@@ -31,7 +31,7 @@ export default {
         family: true,
         work: true,
         diary: true,
-        object: true,
+        object: false,
         learn: true,
         disport: true,
         about: false
